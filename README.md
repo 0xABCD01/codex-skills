@@ -7,13 +7,13 @@ Skills for [OpenAI Codex CLI](https://github.com/openai/codex). Each skill const
 Copy any `.md` file from `skills/` into your Codex skills directory:
 
 ```bash
-cp skills/*.md ~/.codex/skills/
+cp skills/*.md ~/.codex/skills/codex-skills
 ```
 
 Or copy one at a time:
 
 ```bash
-cp skills/codex-quick-fix.md ~/.codex/skills/
+cp skills/codex-quick-fix.md ~/.codex/skills/codex-skills
 ```
 
 ## Skills
