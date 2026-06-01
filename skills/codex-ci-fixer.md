@@ -7,14 +7,14 @@ Read CI failure logs, find the root cause, fix the code, push, verify the next r
 ```
 CI is failing. Fix it. Follow these steps:
 
-STEP 1 — GET THE FAILURE LOG
+STEP 1: GET THE FAILURE LOG
 Run: gh run list --limit 5
 Find the most recent failed run. Get its ID.
 Run: gh run view [RUN_ID] --log-failed
 
 If gh is not available, ask the user to paste the failure log.
 
-STEP 2 — IDENTIFY THE ROOT CAUSE
+STEP 2: IDENTIFY THE ROOT CAUSE
 Read the failure log. Find the FIRST error (not warnings, not info).
 Categorize it:
 - Test failure: a specific test assertion failed
@@ -26,14 +26,14 @@ Categorize it:
 
 Name the file, line number, and exact error message.
 
-STEP 3 — READ THE FAILING CODE
+STEP 3: READ THE FAILING CODE
 Read the file that caused the failure. Read 30 lines of context.
 Determine: did your recent change cause this, or was it pre-existing?
 
 Run: git log --oneline -5
 Check if the failure relates to the latest commits.
 
-STEP 4 — FIX
+STEP 4: FIX
 Apply the smallest fix that resolves the error.
 
 Rules:
@@ -45,7 +45,7 @@ Rules:
 
 Do not change code unrelated to the failure.
 
-STEP 5 — VERIFY LOCALLY
+STEP 5: VERIFY LOCALLY
 Run the same check that CI runs:
 - If pytest failed: run pytest
 - If lint failed: run the linter
@@ -54,7 +54,7 @@ Run the same check that CI runs:
 
 Confirm it passes locally before pushing.
 
-STEP 6 — PUSH AND VERIFY
+STEP 6: PUSH AND VERIFY
 Run: git add -A && git commit -m 'fix ci: <what you fixed>'
 Run: git push
 
@@ -79,7 +79,7 @@ If it fails again, repeat from Step 1 with the new log.
 
 ## What Codex Does Wrong Without This
 
-Codex reads the last line of the log (usually a summary) and guesses. It changes the test to pass instead of fixing the code. It pushes without running the check locally first, so CI fails again. This skill forces Codex to read the actual error, fix locally, verify, then push.
+Codex reads the summary line at the bottom of the CI log and guesses at the fix. It modifies the test to pass instead of fixing the broken code. It pushes without running the check locally, so CI fails again. This skill makes Codex trace back to the first actual error, fix that, verify locally, then push.
 
 ## Example
 
@@ -87,30 +87,30 @@ Codex reads the last line of the log (usually a summary) and guesses. It changes
 codex exec "
 CI is failing. Fix it. Follow these steps:
 
-STEP 1 — GET THE FAILURE LOG
+STEP 1: GET THE FAILURE LOG
 Run: gh run list --limit 5
 Find the most recent failed run. Get its ID.
 Run: gh run view [RUN_ID] --log-failed
 
-STEP 2 — IDENTIFY THE ROOT CAUSE
+STEP 2: IDENTIFY THE ROOT CAUSE
 Read the failure log. Find the FIRST error.
 Categorize it: test failure, lint error, type error, build error, missing dep, config error.
 Name the file, line number, and exact error message.
 
-STEP 3 — READ THE FAILING CODE
+STEP 3: READ THE FAILING CODE
 Read the file that caused the failure with 30 lines of context.
 Determine if your recent change caused this.
 
-STEP 4 — FIX
+STEP 4: FIX
 Apply the smallest fix. Rules:
 - Fix the code, not the test (unless the test is wrong)
 - For lint: run auto-fix
 - Do not change unrelated code
 
-STEP 5 — VERIFY LOCALLY
+STEP 5: VERIFY LOCALLY
 Run the same check CI runs. Confirm it passes.
 
-STEP 6 — PUSH AND VERIFY
+STEP 6: PUSH AND VERIFY
 Commit and push. Check CI status.
 If it fails again, repeat from Step 1.
 "

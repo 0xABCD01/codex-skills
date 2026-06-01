@@ -7,12 +7,12 @@ Review code changes before pushing. Security scan, correctness check, test run. 
 ```
 Review all uncommitted changes. Follow these steps:
 
-STEP 1 — SCOPE
+STEP 1: SCOPE
 Run: git diff --stat HEAD
 Run: git diff HEAD --name-only
 List every changed file.
 
-STEP 2 — SECURITY SCAN
+STEP 2: SECURITY SCAN
 Grep the diff for these patterns. Run each command:
 
 Hardcoded secrets:
@@ -32,7 +32,7 @@ git diff HEAD | grep -E 'open\(.*\+|os\.path\.join.*request'
 
 For each match, explain: is this a real issue or a false positive?
 
-STEP 3 — CORRECTNESS REVIEW
+STEP 3: CORRECTNESS REVIEW
 Read the full diff: git diff HEAD
 
 For each file, check:
@@ -43,7 +43,7 @@ For each file, check:
 - No debug prints, console.logs, or TODO comments left behind
 - No unused imports or dead code
 
-STEP 4 — TEST VERIFICATION
+STEP 4: TEST VERIFICATION
 Detect and run the test framework:
 - package.json → npm test
 - pyproject.toml → pytest
@@ -52,7 +52,7 @@ Detect and run the test framework:
 
 Report pass/fail counts.
 
-STEP 5 — VERDICT
+STEP 5: VERDICT
 Produce this report:
 
 REVIEW VERDICT: [PASS / FAIL / PASS_WITH_NOTES]
@@ -79,11 +79,11 @@ SECURITY: [CLEAN / issues found]
 ## When Not to Use
 
 - One-line config change
-- User says "just push it"
+- User says "push it"
 
 ## What Codex Does Wrong Without This
 
-Codex says "looks good" without checking. It skips the security grep. It runs tests but ignores failures. This skill forces three separate checks and a structured report.
+"Looks good" is Codex's default. It skips the security grep. It runs tests and ignores the failures. Three separate checks with a structured report at the end. No way to skip steps.
 
 ## Example
 
@@ -91,11 +91,11 @@ Codex says "looks good" without checking. It skips the security grep. It runs te
 codex exec "
 Review all uncommitted changes. Follow these steps:
 
-STEP 1 — SCOPE
+STEP 1: SCOPE
 Run: git diff --stat HEAD
 List every changed file.
 
-STEP 2 — SECURITY SCAN
+STEP 2: SECURITY SCAN
 Grep the diff for:
 - Hardcoded secrets (api_key, secret, password, token)
 - Shell injection (os.system, subprocess shell=True)
@@ -105,14 +105,14 @@ Grep the diff for:
 
 For each match, explain if it's real or false positive.
 
-STEP 3 — CORRECTNESS REVIEW
+STEP 3: CORRECTNESS REVIEW
 Read the full diff. For each file check:
 - Error handling, edge cases, off-by-one, debug statements, unused imports.
 
-STEP 4 — TEST VERIFICATION
+STEP 4: TEST VERIFICATION
 Detect and run tests. Report pass/fail.
 
-STEP 5 — VERDICT
+STEP 5: VERDICT
 Report: CRITICAL / WARNINGS / SUGGESTIONS / TESTS / SECURITY / SUMMARY
 "
 ```

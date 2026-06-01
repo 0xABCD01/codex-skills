@@ -7,11 +7,11 @@ Scan dependencies for vulnerabilities, outdated packages, and unused imports. Wo
 ```
 Audit the dependencies in this project. Follow these steps:
 
-STEP 1 — DETECT LANGUAGE AND PACKAGE MANAGER
+STEP 1: DETECT LANGUAGE AND PACKAGE MANAGER
 Check for: package.json, requirements.txt, pyproject.toml, go.mod, Cargo.toml.
 Report which one you found.
 
-STEP 2 — VULNERABILITY SCAN
+STEP 2: VULNERABILITY SCAN
 Run the appropriate scanner:
 - Node: npm audit (or yarn audit / pnpm audit)
 - Python: pip-audit (install if missing: pip install pip-audit)
@@ -24,7 +24,7 @@ Report each vulnerability:
 - CVE number if available
 - Fixed version (what to upgrade to)
 
-STEP 3 — OUTDATED PACKAGES
+STEP 3: OUTDATED PACKAGES
 Check for outdated packages:
 - Node: npm outdated
 - Python: pip list --outdated
@@ -32,17 +32,17 @@ Check for outdated packages:
 - Rust: cargo outdated (install if needed)
 
 Report: current version → latest version for each outdated package.
-Flag breaking changes (major version bumps) separately from safe updates.
+Flag breaking changes (major version bumps) in a separate group from safe updates.
 
-STEP 4 — UNUSED DEPENDENCIES
+STEP 4: UNUSED DEPENDENCIES
 Check for imported-but-not-installed and installed-but-not-imported packages:
 - Node: scan source files for require() and import statements, compare to package.json
 - Python: scan for import statements, compare to requirements.txt/pyproject.toml
 - Go: run go mod tidy and check what changed
 
-Report unused deps and missing deps separately.
+Report unused deps and missing deps as separate sections.
 
-STEP 5 — SUMMARY
+STEP 5: SUMMARY
 Produce a report:
 
 VULNERABILITIES: X found (Y critical, Z high, M medium, N low)
@@ -67,7 +67,7 @@ For each critical/high vulnerability, suggest the upgrade command.
 
 ## What Codex Does Wrong Without this
 
-Codex runs `npm audit` and dumps raw JSON. It doesn't distinguish major from minor updates. It suggests upgrading everything at once, which breaks things. This skill separates safe updates from breaking ones and gives specific commands.
+Raw `npm audit` output is JSON noise. Codex dumps it without filtering severity. It lumps major and minor updates together and suggests upgrading everything at once, which breaks your lockfile. This skill separates critical vulns from low-risk ones and gives you the exact command for each safe upgrade.
 
 ## Example
 
@@ -75,11 +75,11 @@ Codex runs `npm audit` and dumps raw JSON. It doesn't distinguish major from min
 codex exec "
 Audit the dependencies in this project. Follow these steps:
 
-STEP 1 — DETECT LANGUAGE AND PACKAGE MANAGER
+STEP 1: DETECT LANGUAGE AND PACKAGE MANAGER
 Check for: package.json, requirements.txt, pyproject.toml, go.mod, Cargo.toml.
 Report which one you found.
 
-STEP 2 — VULNERABILITY SCAN
+STEP 2: VULNERABILITY SCAN
 Run the appropriate scanner:
 - Node: npm audit (or yarn audit / pnpm audit)
 - Python: pip-audit (install if missing: pip install pip-audit)
@@ -92,7 +92,7 @@ Report each vulnerability:
 - CVE number if available
 - Fixed version (what to upgrade to)
 
-STEP 3 — OUTDATED PACKAGES
+STEP 3: OUTDATED PACKAGES
 Check for outdated packages:
 - Node: npm outdated
 - Python: pip list --outdated
@@ -100,13 +100,13 @@ Check for outdated packages:
 - Rust: cargo outdated (install if needed)
 
 Report: current version → latest version for each outdated package.
-Flag breaking changes (major version bumps) separately from safe updates.
+Flag breaking changes (major version bumps) in a separate group from safe updates.
 
-STEP 4 — UNUSED DEPENDENCIES
+STEP 4: UNUSED DEPENDENCIES
 Check for imported-but-not-installed and installed-but-not-imported packages.
-Report unused deps and missing deps separately.
+Report unused deps and missing deps as separate sections.
 
-STEP 5 — SUMMARY
+STEP 5: SUMMARY
 Produce a report:
 
 VULNERABILITIES: X found (Y critical, Z high, M medium, N low)

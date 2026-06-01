@@ -7,11 +7,11 @@ Clean up a branch before opening a PR. Squash fixup commits, rebase on main, fix
 ```
 Clean up this branch for PR. Follow these steps:
 
-STEP 1 — SHOW CURRENT STATE
+STEP 1: SHOW CURRENT STATE
 Run: git log --oneline main..HEAD
 Count the commits. If 1 or fewer, stop and say "nothing to clean up."
 
-STEP 2 — IDENTIFY FIXUP COMMITS
+STEP 2: IDENTIFY FIXUP COMMITS
 Look for commits with these prefixes:
 - fixup!
 - squash!
@@ -25,7 +25,7 @@ Look for commits with these prefixes:
 Also look for commits that modify the same file as the previous commit
 (these are likely fixups that should be squashed).
 
-STEP 3 — INTERACTIVE REBASE
+STEP 3: INTERACTIVE REBASE
 Run: git rebase -i main
 Squash fixup commits into their parent. Keep feature commits separate.
 
@@ -35,18 +35,18 @@ Rules for the rebase:
 - "Add user model" + "Add task model" → keep separate
 - Rename vague messages ("fix stuff", "updates") to describe the change
 
-STEP 4 — VERIFY
+STEP 4: VERIFY
 Run: git log --oneline main..HEAD
 Confirm the commit history reads as a clean sequence of logical changes.
 Run: git diff main...HEAD --stat
 Confirm the total changes haven't changed (rebase didn't lose anything).
 
-STEP 5 — REBASE ON LATEST MAIN
+STEP 5: REBASE ON LATEST MAIN
 Run: git fetch origin main
 Run: git rebase origin/main
 If conflicts, stop and report them. Do not force-resolve.
 
-STEP 6 — REPORT
+STEP 6: REPORT
 Show the final commit list. Each message should:
 - Start with a verb (add, remove, fix, refactor, update)
 - Name the thing changed
@@ -67,7 +67,7 @@ Show the final commit list. Each message should:
 
 ## What Codex Does Wrong Without This
 
-Codex does `git rebase -i` and picks the wrong commits to squash. It force-pushes without asking. It resolves conflicts by picking one side randomly. This skill makes Codex show the state first, squash with rules, and stop on conflicts.
+Left to its own devices, Codex squashes the wrong commits during rebase. It force-pushes without asking. When conflicts appear, it picks a side at random. This skill makes it show the current state first, squash by rules (not guesswork), and stop when conflicts appear instead of resolving them blind.
 
 ## Example
 
@@ -75,17 +75,17 @@ Codex does `git rebase -i` and picks the wrong commits to squash. It force-pushe
 codex exec "
 Clean up this branch for PR. Follow these steps:
 
-STEP 1 — SHOW CURRENT STATE
+STEP 1: SHOW CURRENT STATE
 Run: git log --oneline main..HEAD
 Count the commits. If 1 or fewer, stop and say 'nothing to clean up.'
 
-STEP 2 — IDENTIFY FIXUP COMMITS
+STEP 2: IDENTIFY FIXUP COMMITS
 Look for commits with these prefixes:
 - fixup!, squash!, wip, tmp, fix, oops, typo, forgot
 
 Also look for commits that modify the same file as the previous commit.
 
-STEP 3 — INTERACTIVE REBASE
+STEP 3: INTERACTIVE REBASE
 Run: git rebase -i main
 Squash fixup commits into their parent. Keep feature commits separate.
 
@@ -94,18 +94,18 @@ Rules for the rebase:
 - Separate features → keep separate
 - Rename vague messages to describe the change
 
-STEP 4 — VERIFY
+STEP 4: VERIFY
 Run: git log --oneline main..HEAD
 Confirm the history is clean.
 Run: git diff main...HEAD --stat
 Confirm no changes were lost.
 
-STEP 5 — REBASE ON LATEST MAIN
+STEP 5: REBASE ON LATEST MAIN
 Run: git fetch origin main
 Run: git rebase origin/main
 If conflicts, stop and report them. Do not force-resolve.
 
-STEP 6 — REPORT
+STEP 6: REPORT
 Show the final commit list.
 "
 ```
