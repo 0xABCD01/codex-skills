@@ -40,9 +40,11 @@ Each file contains a prompt template and a checklist. When you invoke a skill, C
 
 The prose-review skill condenses three MIT-licensed skills that do this job in more depth. Install any of them straight into your Codex skills directory:
 
-[![stop-slop](https://skills.sh/b/hardikpandya/stop-slop)](https://skills.sh/hardikpandya/stop-slop)
-[![no-ai-slop](https://skills.sh/b/petergyang/no-ai-slop)](https://skills.sh/petergyang/no-ai-slop/no-ai-slop)
-[![humanizer](https://skills.sh/b/blader/humanizer)](https://skills.sh/blader/humanizer)
+| Skill | Installs | Source |
+|---|---|---|
+| stop-slop | [![stop-slop](https://skills.sh/b/hardikpandya/stop-slop)](https://skills.sh/hardikpandya/stop-slop) | [hardikpandya/stop-slop](https://github.com/hardikpandya/stop-slop) |
+| no-ai-slop | [![no-ai-slop](https://skills.sh/b/petergyang/no-ai-slop)](https://skills.sh/petergyang/no-ai-slop/no-ai-slop) | [petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| humanizer | [![humanizer](https://skills.sh/b/blader/humanizer)](https://skills.sh/blader/humanizer) | [blader/humanizer](https://github.com/blader/humanizer) |
 
 ```bash
 npx skills add hardikpandya/stop-slop
