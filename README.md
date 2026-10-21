@@ -30,11 +30,28 @@ cp skills/codex-quick-fix.md ~/.codex/skills/codex-skills
 | [db-migration](skills/codex-db-migration.md) | Generate ORM migration files from a schema change. |
 | [ci-fixer](skills/codex-ci-fixer.md) | Read CI failure logs, fix the code, push, verify green. |
 | [self-review](skills/codex-self-review.md) | Review changes before push: security scan, correctness check, test run. |
+| [prose-review](skills/codex-prose-review.md) | Edit prose to remove AI tells while keeping the writer's voice and every fact intact. |
 
 ## How Skills Work
 
 Each file contains a prompt template and a checklist. When you invoke a skill, Codex follows the steps in order instead of guessing. The prompts use exact commands (grep patterns, test runners, git operations) so Codex can't skip steps.
 
+## Prose and AI tells
+
+The prose-review skill condenses three MIT-licensed skills that do this job in more depth. Install any of them straight into your Codex skills directory:
+
+[![stop-slop](https://skills.sh/b/hardikpandya/stop-slop)](https://skills.sh/hardikpandya/stop-slop)
+[![no-ai-slop](https://skills.sh/b/petergyang/no-ai-slop)](https://skills.sh/petergyang/no-ai-slop/no-ai-slop)
+[![humanizer](https://skills.sh/b/blader/humanizer)](https://skills.sh/blader/humanizer)
+
+```bash
+npx skills add hardikpandya/stop-slop
+npx skills add https://github.com/petergyang/no-ai-slop --skill no-ai-slop
+npx skills add blader/humanizer
+```
+
 ## License
 
 MIT
+
+Vendored skill names in the table above link to their original MIT-licensed repositories and remain the work of their authors.
